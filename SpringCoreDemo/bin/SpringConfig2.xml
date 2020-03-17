@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"> 
+        <!-- bean definitions here -->
+
+
+		
+		<context:property-placeholder location="classpath:SpringUser.properties,mydb.properties"/>
+		<bean id="prop1" class="com.property.User_Property">
+		
+		<property name="user" value="${u1}"></property>
+		<property name="role" value="${r1}"></property>
+		<property name="email" value="${e1}"> </property>
+		
+		</bean>
+		
+	</beans>	
+		
+		

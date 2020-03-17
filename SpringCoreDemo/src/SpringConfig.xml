@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"> <!-- bean definitions here -->
+
+
+		<bean id="Bean1" class="com.test.BeanDemo">
+		<property name="name" value="HK"/>
+
+		</bean>
+		
+		<bean id="myaddress" class="com.test.Address">
+		<constructor-arg value="Chennai"></constructor-arg>
+		<constructor-arg value="India"></constructor-arg>
+	
+		</bean>
+		 
+		<bean id="myemployee1" class="com.test.EmployeeBean">
+		
+		<constructor-arg value="10001"></constructor-arg>
+		<constructor-arg value="Harshal"></constructor-arg>
+		
+		<constructor-arg>
+		<ref bean="myaddress"></ref>
+		
+		</constructor-arg>
+		</bean>
+		
+		<!-- By Using autowire -->
+		<bean id="myemployee23" class="com.test.EmployeeBean" autowire="constructor">
+		
+		<constructor-arg value="10002" type="int"></constructor-arg>
+		<constructor-arg value="HarshalGunjal"></constructor-arg>
+		
+		</bean>
+		
+	<!-- 	<bean id="stud" class="com.test.Student">
+		
+		<property name="sid" value="2001"></property>
+		<property name="name" value="Rahul"></property>
+		
+		</bean>
+		
+		<bean id="course1" class="com.test.Student_course" parent="stud">
+		
+		<property name="name" value="Sahil"></property>
+		<property name="cid" value="2002"></property>
+		<property name="cname" value="Kartik"></property>
+		
+		</bean>
+		 -->
+		 
+		 <!-- using REF  -->
+		<bean id="b11" class="com.test.Branch">
+		<property name="city" value="Chennai"></property>
+		<property name="state" value="tamilnadu"></property>
+		
+		</bean>
+		
+		<bean id="bank" class="com.test.Bank">
+		
+		<property name="bankname" value="HDFC"></property>
+		<property name="mgrname" value="Harshal"></property>
+		<property name="b1" ref="b11"></property><!--  we are passing Branch ref variable to the property name and addone ref property -->
+		
+		</bean>
+		
+		<!-- For Autowire we again create bean id because in autowire we are using byName so we have to match the id to byName -->
+		<bean id="b1" class="com.test.Branch">
+		<property name="city" value="Chennai"></property>
+		<property name="state" value="tamilnadu"></property>
+		
+		</bean>
+		<!-- we have to change id to the bank1
+		and add one property bean  called autowire
+		 -->
+		<bean id="bank1" class="com.test.Bank" autowire="byName">
+		
+		<property name="bankname" value="HDFC"></property>
+		<property name="mgrname" value="Harshal"></property>
+		<property name="b1" ref="b11"></property>
+		
+		</bean>
+		
+		<!-- Using annotations @Autowired and @Qualifier -->
+		
+		<context:annotation-config/>
+		<bean id="b18" class="com.test.Branch">
+		
+		<property name="city" value="Pune"></property>
+		<property name="state" value="Rahul"></property>
+		
+		</bean>
+		
+		<bean id="anno1" class="com.test.Bank_AutoWire">
+		
+		<property name="bankname" value="HSBS"></property>
+		<property name="mgrname" value="harshal"></property>
+		
+		</bean>
+		
+		
+		<!-- Collection Setter Injection -->
+		
+		<bean id="vencus" class="com.test.Vendor_Collection">
+		
+		<property name="vid" value="101"></property>
+		<property name="vendorname" value="BLT"></property>
+		<property  name="cus_name">
+		
+		<set>
+		<value>CTS</value>
+		<value>TCS</value>
+		<value>CTS</value>
+		<value>e-Zest</value>
+		
+		</set></property>
+		</bean>
+		
+		<!-- Collection Setter  and list<Class name> -->
+		
+		<bean id="tech1" class="com.test.Technology_Collection">
+		
+		<property name="techname" value="Servlet"></property>
+		<property name="assessment" value="NO"></property>
+		
+		
+		</bean>
+		
+		<bean id="tech2" class="com.test.Technology_Collection">
+		
+		<property name="techname" value="JSP"></property>
+		<property name="assessment" value="NO"></property>
+		
+		</bean>
+		
+		<bean id="train" class="com.test.Training_Collection">
+		
+		<property name="batchno" value="2"></property>
+		<property name="projectname" value="Healthcare"></property>
+		
+		<property name="tech">
+		
+		<list>
+		
+		<ref bean="tech1"/>
+		<ref bean ="tech2"/>
+		
+		</list>
+		
+		
+		
+		</property>
+		
+		</bean>
+		
+		
+		<!-- Setter Injection in Map Collection -->
+		<bean id="AsMap" class="com.test.MapCollection">
+		
+		<property name="sid" value="844877"></property>
+		<property name="sname" value="Harshal"/>
+		<property name="test_details">
+		
+		<map>
+		
+		<entry key="CoreJava" value="Manditory"/>
+		<entry key="AdvanceJava" value="Manditory"/>
+		
+
+		</map>
+	
+		</property>
+		
+		</bean>
+		<!-- Using Constructor injection -->
+		<bean id="const1" class="com.test.VendorConstructor">
+		
+		<constructor-arg value="10001"></constructor-arg>
+		<constructor-arg value="BLT"></constructor-arg>
+		
+		
+		<constructor-arg name="cus_name">
+		<set>
+		<value>CTS</value>
+		<value>TCS</value>
+		<value>CTS</value>
+		<value>Accenture</value>
+		<value>NCS</value>
+		<value>e-Zest</value>
+		
+		</set>
+		
+		</constructor-arg>
+	
+		</bean>
+		
+		
+		<!-- Spring Jdbc bean  XMl  -->
+		<context:property-placeholder location="classpath:mydb.properties"/>
+		
+		<bean id="jdbc1" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		
+		<property name="driverClassName" value="${driver}"/>
+		<property name="url" value="${dburl}"></property>
+		<property name="username" value="${dbuser}"/>
+		<property name="password" value="${dbpassword}"></property>
+		
+	
+		</bean>
+		
+		<bean id="mydatabase" class="com.dao.Employee_JdbcTemplate1">
+		
+		<property name="datasource" ref="jdbc1"/>
+		
+		</bean>
+		
+		
+		<!-- Automatically scan all the classes inside packages ehich are marked with @component annotation -->
+	<context:component-scan base-package="com.test"></context:component-scan>
+		
+</beans>
+
+
+
+
